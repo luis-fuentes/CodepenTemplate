@@ -399,3 +399,28 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
             userRef.child("radius").set($scope.user.radius);
         }
     })
+
+
+    .controller('MapCtrl', function ($scope, $ionicLoading, $document, $ionicPlatform, EventMapService) {
+   
+    //$scope.loadingIndicator = $ionicLoading.show({
+    //    content: 'Loading Data',
+    //    animation: 'fade-in',
+    //    showBackdrop: false,
+    //    maxWidth: 200,
+    //    showDelay: 500
+    //});
+   // var ss = document.getElementById("google-map");
+    var mapOptions = EventMapService.refreshmap();
+    $scope.varmap = new google.maps.Map(document.getElementById("google-map"), mapOptions);
+  
+  //  EventMapService.initialize();
+    EventMapService.setCurrentLocation($scope.varmap);
+    EventMapService.setMarkers($scope.varmap);
+
+    //var start = new google.maps.LatLng(28.694004, 77.110291);
+    //var end = new google.maps.LatLng(28.72082, 77.107241);
+    EventMapService.renderdirection($scope.varmap);
+    //$scope.loadingIndicator.hide();
+
+    })

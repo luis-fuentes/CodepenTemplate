@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['starter.controllers'])
+angular.module('starter', ['starter.controllers', 'starter.services'])
 
     .run(function ($ionicPlatform, $ionicLoading, $ionicPopup) {
         $ionicPlatform.ready(function () {
@@ -33,6 +33,16 @@ angular.module('starter', ['starter.controllers'])
                 views: {
                     'menuContent': {
                         templateUrl: "templates/login.html"
+                    }
+                }
+            })
+
+            .state('app.map', {
+                url: "/map",
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/map.html",
+                        controller: 'MapCtrl'
                     }
                 }
             })
