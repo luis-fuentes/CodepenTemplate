@@ -283,12 +283,12 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                     var color = 'gray';
 
                     if (distance > 1) {
-                        distance = (Math.round(distance * 10)/10) + " km away";
+                        distance = (Math.round(distance * 10)/10) + " km de distancia";
                     } else if (distance > 0 && distance < 1) {
-                        distance = (distance * 1000) + " m away";
+                        distance = (distance * 1000) + " m de distancia";
                         color = 'black';
                     } else {
-                        distance = "shoutout is right next to you!";
+                        distance = "¡El tip esta justo junto a ti!";
                         color = 'red';
                     }
 
