@@ -45,9 +45,9 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
     .controller('AppCtrl', function ($state, $scope, $window, $rootScope, $firebase, $ionicLoading, $ionicPopup) {
         log.info("app started");
 
-        $rootScope.postToChat = function (post, chatId, callback) {
-            var chatRef = new Firebase(BASE_URL + "/chats/geoFire/dataById/" + chatId);
-            chatRef.child("posts").push({
+        $rootScope.postTotip = function (post, tipId, callback) {
+            var tipRef = new Firebase(BASE_URL + "/tips/geoFire/dataById/" + tipId);
+            tipRef.child("posts").push({
                 post: post,
                 posterId: getCurrentUserID(),
                 posterAlias: getCurrentUserAlias(),
@@ -133,7 +133,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                     log.info('User ID: ' + user.uid + ', Provider: ' + user.provider);
                     setCurrentUser (user, $firebase);
 
-                    $state.go("app.chats");
+                    $state.go("app.tips");
                 } else {
                     // user is logged out
                     log.info("user is logged out");
@@ -204,7 +204,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                             alias: $scope.alias,
                             email: $scope.email,
                             radius: "unlimited",
-                            chatIdList: []
+                            tipIdList: []
                         }
                     );
 
@@ -225,15 +225,15 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
         }
     })
 
-    .controller('ChatsCtrl', function ($scope, $geofire, $interval, $ionicPopup) {
-        $scope.chats = [];
+    .controller('tipsCtrl', function ($scope, $geofire, $interval, $ionicPopup) {
+        $scope.tips = [];
         $scope.searchInteval;
         $scope.findShoutsInMyArea = function() {
 
             if (!angular.isDefined(_currentsouser))
                 return;
 
-            var geo = $geofire(new Firebase(BASE_URL + "/chats"));
+            var geo = $geofire(new Firebase(BASE_URL + "/tips"));
 
             if ($scope.lastSearch)
                 geo.$offPointsNearLoc($scope.lastSearch.latLon, $scope.lastSearch.radius, "geo:search");
@@ -269,12 +269,12 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
             $interval.cancel($scope.searchInteval);
         }
 
-        $scope.$on('$destroy', function destroyChatsCtrlScope() {
+        $scope.$on('$destroy', function destroytipsCtrlScope() {
             $scope.stopSearchingAreaForShoutouts();
         });
 
         $scope.$on("geo:search", function onGeoSearch (event, latLon, radius, shouts) {
-            $scope.chats = [];
+            $scope.tips = [];
             $scope.$apply(function() {
                 for (var i = 0; i < shouts.length; i++) {
                     var shout = shouts[i];
@@ -297,7 +297,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                         color: color
                     });
 
-                    $scope.chats.push(shout);
+                    $scope.tips.push(shout);
                 }
 
                 $scope.$broadcast('scroll.refreshComplete');
@@ -307,37 +307,37 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
         $scope.startSearchingAreaForShoutouts();
     })
 
-    .controller('MyChatsCtrl', function ($scope, $firebase) {
-        $scope.chats = [];
+    .controller('MytipsCtrl', function ($scope, $firebase) {
+        $scope.tips = [];
 
         if (!angular.isDefined(_currentuser))
             return;
 
-        var chatIdListRef = new Firebase(BASE_URL + "/users/"+getCurrentUserID() + "/chatIdList");
-        chatIdListRef.on("value", function(snapshot) {
-            snapshot.forEach(function(chatListItem) {
-                var chatVal = $firebase(new Firebase(BASE_URL + "/chats/geoFire/dataById/" + chatListItem.val().chatId));
+        var tipIdListRef = new Firebase(BASE_URL + "/users/"+getCurrentUserID() + "/tipIdList");
+        tipIdListRef.on("value", function(snapshot) {
+            snapshot.forEach(function(tipListItem) {
+                var tipVal = $firebase(new Firebase(BASE_URL + "/tips/geoFire/dataById/" + tipListItem.val().tipId));
 
-                $scope.chats.push(chatVal);
+                $scope.tips.push(tipVal);
             });
         });
     })
 
-    .controller('ViewChatCtrl', function ($scope, $rootScope, $ionicLoading, $ionicScrollDelegate, $firebase, $stateParams) {
-        var postsRef = new Firebase(BASE_URL + "/chats/geoFire/dataById/" + $stateParams.chatId + "/posts");
+    .controller('ViewtipCtrl', function ($scope, $rootScope, $ionicLoading, $ionicScrollDelegate, $firebase, $stateParams) {
+        var postsRef = new Firebase(BASE_URL + "/tips/geoFire/dataById/" + $stateParams.tipId + "/posts");
         $scope.posts = $firebase(postsRef);
 
-        $scope.newChatPost = function() {
+        $scope.newtipPost = function() {
             if ($scope.newpost && $scope.newpost.length > 0) {
-                log.info("Posting: " + $scope.newpost + ", chatid: " + $stateParams.chatId);
-                $rootScope.postToChat(angular.copy($scope.newpost), $stateParams.chatId);
+                log.info("Posting: " + $scope.newpost + ", tipid: " + $stateParams.tipId);
+                $rootScope.postTotip(angular.copy($scope.newpost), $stateParams.tipId);
                 $scope.newpost = "";
             }
         }
 
         $scope.trySubmit = function($event) {
             if ($event.keyCode == '13') {
-                $scope.newChatPost();
+                $scope.newtipPost();
             }
         }
 
@@ -347,16 +347,16 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
         });
     })
 
-    .controller('NewChatCtrl', function ($scope, $rootScope, $ionicLoading, $state, $geofire, $stateParams, $window) {
-        $scope.newChat = function () {
+    .controller('NewtipCtrl', function ($scope, $rootScope, $ionicLoading, $state, $geofire, $stateParams, $window) {
+        $scope.newtip = function () {
             $scope.loading = $ionicLoading.show({
-                content: 'Creating chat..'
+                content: 'Creating tip..'
             });
 
-            var chatsRef = new Firebase(BASE_URL + "/chats");
-            var geo = $geofire (chatsRef);
+            var tipsRef = new Firebase(BASE_URL + "/tips");
+            var geo = $geofire (tipsRef);
 
-            var chat = {
+            var tip = {
                 id: getCurrentUserID() + "_" + new Date().getTime(),
                 title: $scope.title,
                 createdByAlias: getCurrentUserAlias(),
@@ -365,7 +365,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                 posts: []
             };
 
-            geo.$insertByLocWithId(_currentlocation, chat.id, chat).catch(
+            geo.$insertByLocWithId(_currentlocation, tip.id, tip).catch(
                 function(err) {
                     $ionicPopup.alert({
                         title: 'Failed',
@@ -374,12 +374,12 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                 }
             ).then(function() {
                 var userRef = new Firebase(BASE_URL + "/users/"+getCurrentUserID());
-                userRef.child("chatIdList").push({
-                    chatId: chat.id
+                userRef.child("tipIdList").push({
+                    tipId: tip.id
                 });
 
-                $rootScope.postToChat($scope.post, chat.id);
-                $state.go("app.viewchat", {chatId: chat.id});
+                $rootScope.postTotip($scope.post, tip.id);
+                $state.go("app.viewtip", {tipId: tip.id});
 
                 $scope.loading.hide();
             });

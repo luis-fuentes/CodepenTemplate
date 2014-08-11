@@ -56,20 +56,20 @@ angular.module('starter', ['starter.controllers'])
                 }
             })
 
-            .state('app.chats', {
-                url: "/chats",
+            .state('app.tips', {
+                url: "/tips",
                 views: {
                     'menuContent': {
-                        templateUrl: "templates/areachats.html"
+                        templateUrl: "templates/areatips.html"
                     }
                 }
             })
 
-            .state('app.mychats', {
-                url: "/mychats",
+            .state('app.mytips', {
+                url: "/mytips",
                 views: {
                     'menuContent': {
-                        templateUrl: "templates/mychats.html"
+                        templateUrl: "templates/mytips.html"
                     }
                 }
             })
@@ -83,20 +83,20 @@ angular.module('starter', ['starter.controllers'])
                 }
             })
 
-            .state('app.viewchat', {
-                url: "/chats/{chatId}",
+            .state('app.viewtip', {
+                url: "/tips/{tipId}",
                 views: {
                     'menuContent': {
-                        templateUrl: "templates/chat.html"
+                        templateUrl: "templates/tip.html"
                     }
                 }
             })
 
-            .state('app.newchat', {
-                url: "/newchat",
+            .state('app.newtip', {
+                url: "/newtip",
                 views: {
                     'menuContent': {
-                        templateUrl: "templates/newchat.html"
+                        templateUrl: "templates/newtip.html"
                     }
                 }
             });

@@ -1,0 +1,18 @@
+<ion-view title="Nuevo Tip">
+    <ion-content class="has-header" ng-controller="NewtipCtrl">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Titulo</span>
+                    <input type="text" ng-model="title" placeholder="Titulo" required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Detalles</span>
+                    <textarea ng-model="post" placeholder="Ingresa acá los detalles de tu tip..." required></textarea>
+                </label>
+            </div>
+            <div class="padding">
+                <button class="button button-block button-calm" ng-click="newtip()">Crear</button>
+                <a class="button button-block button-assertive" ng-click="back()">Cancelar</a>
+            </div>
+    </ion-content>
+</ion-view>

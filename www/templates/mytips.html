@@ -1,0 +1,22 @@
+<ion-view title="Mis Tips">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="right">
+        <a nav-clear menu-close class="button button-outline button-dark" href="#/app/newtip">Nuevo</a>
+    </ion-nav-buttons>
+
+    <ion-content class="has-header" ng-controller="MytipsCtrl">
+        <ion-list ng-show="tips.length > 0">
+            <ion-item ng-repeat="tip in tips" href="#/app/tips/{{tip.id}}" class="item item-avatar">
+                <img src="img/rutatips.jpg">
+                <h2>{{tip.title}}</h2>
+                <p>Creado por {{tip.createdByAlias}}</p>
+            </ion-item>
+        </ion-list>
+        <div ng-show="tips.length == 0" class="padding">    
+        No ha creado ninguna Tip todavía. Toque en 'Nuevo' para crear un nuevo Tip.    
+        </div>
+    </ion-content>
+</ion-view>
