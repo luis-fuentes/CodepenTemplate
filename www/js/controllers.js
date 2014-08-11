@@ -59,7 +59,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
 
         $scope.initLocation = function() {
             $scope.loading = $ionicLoading.show({
-                content: 'Fetching location..'
+                content: 'Localizando...'
             });
 
             _currentlocation = null;
@@ -95,8 +95,8 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                     function (err) {
                         $scope.loading.hide();
                         $ionicPopup.alert({
-                            title: 'Location Not Found',
-                            content: 'Before running this app please make sure Location services are enabled on your device. Functionality will be limited without it.'});
+                            title: 'No localizado',
+                            content: 'Antes de ejecutar esta aplicación verifique que los servicios de Ubicación estén activados en su dispositivo. La funcionalidad será limitada sin ellos.'});
                     },
                     {
                         maximumAge: 3000,
@@ -107,8 +107,8 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
             } else {
                 $scope.loading.hide();
                 $ionicPopup.alert({
-                    title: 'Location Not Found',
-                    content: 'Before running this app please make sure Location services are enabled on your device. Functionality will be limited without it.'
+                    title: 'No Localizado',
+                    content: 'Antes de ejecutar esta aplicación verifique que los servicios de Ubicación estén activados en su dispositivo. La funcionalidad será limitada sin ellos.'
                 });
             }
         }
@@ -124,8 +124,8 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                     // an error occurred while attempting login
                     log.error(error);
                     $ionicPopup.alert({
-                        title: 'Login Failed',
-                        content: "Invalid username and/or password."
+                        title: 'Fallo Ingreso',
+                        content: "Email o passworn invalidos"
                     });
                     $state.go("app.login");
                 } else if (user) {
@@ -152,7 +152,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
             log.info($event);
 
             $rootScope.loading = $ionicLoading.show({
-                content: 'Signing in..'
+                content: 'Ingresando...'
             });
 
             auth.login('password', {
@@ -176,22 +176,22 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
 
             if (!$scope.password || $scope.password == '') {
                 $ionicPopup.alert({
-                    title: 'Bad Password',
-                    content: "Password cannot be blank."
+                    title: 'Mal Password',
+                    content: "Password no puede estar en blanco."
                 });
 
                 return;
             } else if ($scope.password != $scope.passwordConfirm) {
                     $ionicPopup.alert({
-                        title: 'Password Mismatch',
-                        content: "Passwords do not match."
+                        title: 'Password Erroneo',
+                        content: "Passwords no coincide."
                     });
 
                     return;
             }
 
             $rootScope.loading = $ionicLoading.show({
-                content: 'Registering, please wait..'
+                content: 'Registrando, por favor espere...'
             });
 
             auth.createUser($scope.email, $scope.password, function(error, user) {
@@ -217,7 +217,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                     $rootScope.loading.hide();
 
                     $ionicPopup.alert({
-                        title: 'Registration Failed',
+                        title: 'Fallo Registro',
                         content: error
                     });
                 }
@@ -350,7 +350,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
     .controller('NewtipCtrl', function ($scope, $rootScope, $ionicLoading, $state, $geofire, $stateParams, $window) {
         $scope.newtip = function () {
             $scope.loading = $ionicLoading.show({
-                content: 'Creating tip..'
+                content: 'Creando tip...'
             });
 
             var tipsRef = new Firebase(BASE_URL + "/tips");
@@ -368,7 +368,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
             geo.$insertByLocWithId(_currentlocation, tip.id, tip).catch(
                 function(err) {
                     $ionicPopup.alert({
-                        title: 'Failed',
+                        title: 'Fallo',
                         content: err
                     });
                 }
