@@ -423,17 +423,23 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
     // map: map
     // });
 
-   
-    var mapOptions = EventMapService.refreshmap();
-    $scope.varmap = new google.maps.Map(document.getElementById("google-map"), mapOptions);
+    var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
+    var mapOptions = {center: myLatlng, zoom: 12};
+    // var mapOptions = EventMapService.refreshmap();
+    map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
+    var marker = new google.maps.Marker({
+    position: myLatlng,
+    content:"Hello World!",
+    map: map
+    });
   
   //  EventMapService.initialize();
-    EventMapService.setCurrentLocation($scope.varmap);
-    EventMapService.setMarkers($scope.varmap);
+    // EventMapService.setCurrentLocation($scope.varmap);
+    // EventMapService.setMarkers($scope.varmap);
 
-    //var start = new google.maps.LatLng(28.694004, 77.110291);
-    //var end = new google.maps.LatLng(28.72082, 77.107241);
-    EventMapService.renderdirection($scope.varmap);
+    // //var start = new google.maps.LatLng(28.694004, 77.110291);
+    // //var end = new google.maps.LatLng(28.72082, 77.107241);
+    // EventMapService.renderdirection($scope.varmap);
     //$scope.loadingIndicator.hide();
 
     })
