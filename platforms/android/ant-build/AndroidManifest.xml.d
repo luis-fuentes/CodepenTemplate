@@ -1,2 +1,2 @@
-/Users/Narki/Development/rutaTipsApp/platforms/android/ant-build/AndroidManifest.xml : \
-/Users/Narki/Development/rutaTipsApp/platforms/android/AndroidManifest.xml \
+/Users/Narki/Development/rutaTips/platforms/android/ant-build/AndroidManifest.xml : \
+/Users/Narki/Development/rutaTips/platforms/android/AndroidManifest.xml \

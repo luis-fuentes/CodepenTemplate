@@ -411,6 +411,19 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
     //    showDelay: 500
     //});
    // var ss = document.getElementById("google-map");
+
+
+    //    var mapOptions = EventMapService.refreshmap();
+    // var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
+    // var mapOptions = {center: myLatlng, zoom: 11};
+    // var map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
+    // var marker = new google.maps.Marker({
+    // position: myLatlng,
+    // content:"Hello World!",
+    // map: map
+    // });
+
+   
     var mapOptions = EventMapService.refreshmap();
     $scope.varmap = new google.maps.Map(document.getElementById("google-map"), mapOptions);
   

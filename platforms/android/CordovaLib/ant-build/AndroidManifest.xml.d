@@ -1,2 +1,2 @@
-/Users/Narki/Development/rutaTipsApp/platforms/android/CordovaLib/ant-build/AndroidManifest.xml : \
-/Users/Narki/Development/rutaTipsApp/platforms/android/CordovaLib/AndroidManifest.xml \
+/Users/Narki/Development/rutaTips/platforms/android/CordovaLib/ant-build/AndroidManifest.xml : \
+/Users/Narki/Development/rutaTips/platforms/android/CordovaLib/AndroidManifest.xml \
