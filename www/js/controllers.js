@@ -276,7 +276,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
         $scope.$on("geo:search", function onGeoSearch (event, latLon, radius, shouts) {
             $scope.tips = [];
             $scope.$apply(function() {
-                for (var i = 0; i < shouts.length; i++) {
+                for (var i = 1; i < shouts.length; i++) {
                     var shout = shouts[i];
                     var distance = getDistanceFromLatLonInKm(shout.location[0], shout.location[1],
                         _currentlocation[0], _currentlocation[1]);
@@ -400,46 +400,122 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
         }
     })
 
+    .controller('MapCtrl', function ($scope, $geofire, $interval, $ionicPopup, $firebase, $document, $ionicPlatform) {
+        $scope.tips = [];
+        $scope.searchInteval;
 
-    .controller('MapCtrl', function ($scope, $ionicLoading, $document, $ionicPlatform, EventMapService) {
-   
-    //$scope.loadingIndicator = $ionicLoading.show({
-    //    content: 'Loading Data',
-    //    animation: 'fade-in',
-    //    showBackdrop: false,
-    //    maxWidth: 200,
-    //    showDelay: 500
-    //});
-   // var ss = document.getElementById("google-map");
+                $scope.findShoutsInMyArea = function() {
+
+            if (!angular.isDefined(_currentsouser))
+                return;
+
+            var geo = $geofire(new Firebase(BASE_URL + "/tips"));
+
+            if ($scope.lastSearch)
+                geo.$offPointsNearLoc($scope.lastSearch.latLon, $scope.lastSearch.radius, "geo:search");
 
 
-    //    var mapOptions = EventMapService.refreshmap();
-    // var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
-    // var mapOptions = {center: myLatlng, zoom: 11};
-    // var map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
-    // var marker = new google.maps.Marker({
-    // position: myLatlng,
-    // content:"Hello World!",
-    // map: map
-    // });
+            var radius;
+            if (_currentsouser.radius === 'undefined' || _currentsouser.radius == 'unlimited') {
+                radius = 200;
+            } else {
+                radius = _currentsouser.radius;
+            }
 
-    var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
-    var mapOptions = {center: myLatlng, zoom: 12};
-    // var mapOptions = EventMapService.refreshmap();
-    map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
-    var marker = new google.maps.Marker({
-    position: myLatlng,
-    content:"Hello World!",
-    map: map
-    });
-  
-  //  EventMapService.initialize();
-    // EventMapService.setCurrentLocation($scope.varmap);
-    // EventMapService.setMarkers($scope.varmap);
+            $scope.lastSearch = {
+                latLon: _currentlocation,
+                radius: angular.copy(_currentsouser.radius)
+            }
 
-    // //var start = new google.maps.LatLng(28.694004, 77.110291);
-    // //var end = new google.maps.LatLng(28.72082, 77.107241);
-    // EventMapService.renderdirection($scope.varmap);
-    //$scope.loadingIndicator.hide();
+            geo.$onPointsNearLoc($scope.lastSearch.latLon, $scope.lastSearch.radius, 'geo:search');
+        }
+ 
+
+        $scope.$on("geo:search", function onGeoSearch (event, latLon, radius, shouts) {
+            $scope.tips = [];
+            $scope.$apply(function() {
+                for (var i = 1; i < shouts.length; i++) {
+                    var shout = shouts[i];
+                    var distance = getDistanceFromLatLonInKm(shout.location[0], shout.location[1],
+                        _currentlocation[0], _currentlocation[1]);
+                    var color = 'gray';
+
+                    if (distance > 1) {
+                        distance = (Math.round(distance * 10)/10) + " km de distancia";
+                    } else if (distance > 0 && distance < 1) {
+                        distance = (distance * 1000) + " m de distancia";
+                        color = 'black';
+                    } else {
+                        distance = "¡El tip esta justo junto a ti!";
+                        color = 'red';
+                    }
+
+                    angular.extend(shout, {
+                        distance: distance,
+                        color: color
+                    });
+
+                    $scope.tips.push(shout);
+                }
+
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        });
+
+      //              var contentString = '<div id="content">'+
+      // '<div id="siteNotice">'+
+      // '</div>'+
+      // '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+      // '<div id="bodyContent">'+
+      // '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+      // 'sandstone rock formation in the southern part of the '+
+      // 'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+      // 'south west of the nearest large town, Alice Springs; 450&#160;km '+
+      // '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+      // 'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+      // 'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+      // 'Aboriginal people of the area. It has many springs, waterholes, '+
+      // 'rock caves and ancient paintings. Uluru is listed as a World '+
+      // 'Heritage Site.</p>'+
+      // '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+      // 'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+      // '(last visited June 22, 2009).</p>'+
+      // '</div>'+
+      // '</div>';
+
+      // var contentString = 'hola';
+
+      //   var pinColor = "1aacc3";  //"FE7569";
+               
+      //   var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+      //                  new google.maps.Size(21, 34),
+      //                  new google.maps.Point(0, 0),
+      //                  new google.maps.Point(10, 34));
+
+
+       var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
+
+       var mapOptions = {center: myLatlng, zoom: 12};
+
+       
+       var map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
+
+        
+      //   var infowindow = new google.maps.InfoWindow({
+      //       content: contentString
+      //   });
+
+      //   var marker = new google.maps.Marker({
+      //   position: myLatlng,
+      //   icon: pinImage,
+      //   title: 'Uluru (Ayers Rock)',
+      //   map: map
+      //   });
+
+
+      //   google.maps.event.addListener(marker, 'click', function() {
+      //       infowindow.open(map,marker);
+      //   });
+            
 
     })
