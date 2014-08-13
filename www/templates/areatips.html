@@ -13,7 +13,7 @@
                 on-refresh="findShoutsInMyArea()">
         </ion-refresher>
         <ion-list>
-            <ion-item ng-repeat="tip in tips" href="#/app/tips/{{tip.id}}" class="item item-avatar">
+            <ion-item ng-repeat="tip in tips | orderBy:distance" href="#/app/tips/{{tip.id}}" class="item item-avatar">
                 <img src="img/rutatips.jpg">
                 <h3 style="display:inline;">{{tip.title}},&nbsp;<h4 style="color: {{tip.color}}; display:inline">{{tip.distance}}</h4></h3>
                 <p>Creado por {{tip.createdByAlias}}</p>

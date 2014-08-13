@@ -8,5 +8,25 @@
 
     <ion-content ng-controller="MapCtrl" data-tap-disabled="true" id="google-map" />
 
+<!--         <ion-content class="has-header" ng-controller="MapCtrl">
+        <ion-refresher
+                pulling-text="Cargando..."
+                on-refresh="findShoutsInMyArea()">
+        </ion-refresher>
+        <ion-list>
+            <ion-item ng-repeat="tip in tips" href="#/app/tips/{{tip.id}}" class="item item-avatar">
+                <img src="img/rutatips.jpg">
+                <h3 style="display:inline;">{{tip.title}},&nbsp;<h4 style="color: {{tip.color}}; display:inline">{{tip.distance}}</h4></h3>
+                <p>Creado por {{tip.color}}</p>
+            </ion-item>
+            <div ng-show="tips.length == 0" class="padding">
+                No se encontraron Tips en su área geográfica actual. Por favor asegurese de que los servicios de localización estén activados en la configuración del dispositivo.
+            </div>
+            <div ng-show="tips.length == 0" class="padding">
+                Crear un nuevo Tip tocando en 'Nuevo' arriba.
+            </div>
+        </ion-list>
+    </ion-content> -->
+
     
 </ion-view>

@@ -276,7 +276,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
         $scope.$on("geo:search", function onGeoSearch (event, latLon, radius, shouts) {
             $scope.tips = [];
             $scope.$apply(function() {
-                for (var i = 1; i < shouts.length; i++) {
+                for (var i = 0; i < shouts.length; i++) {
                     var shout = shouts[i];
                     var distance = getDistanceFromLatLonInKm(shout.location[0], shout.location[1],
                         _currentlocation[0], _currentlocation[1]);
@@ -401,19 +401,24 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
     })
 
     .controller('MapCtrl', function ($scope, $geofire, $interval, $ionicPopup, $firebase, $document, $ionicPlatform) {
+        
+           var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
+
+       var mapOptions = {center: myLatlng, zoom: 12};
+
+       
+        var map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
+
         $scope.tips = [];
         $scope.searchInteval;
-
-                $scope.findShoutsInMyArea = function() {
+        $scope.findShoutsInMyArea = function() {
 
             if (!angular.isDefined(_currentsouser))
                 return;
 
             var geo = $geofire(new Firebase(BASE_URL + "/tips"));
 
-            if ($scope.lastSearch)
-                geo.$offPointsNearLoc($scope.lastSearch.latLon, $scope.lastSearch.radius, "geo:search");
-
+            
 
             var radius;
             if (_currentsouser.radius === 'undefined' || _currentsouser.radius == 'unlimited') {
@@ -429,38 +434,47 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
 
             geo.$onPointsNearLoc($scope.lastSearch.latLon, $scope.lastSearch.radius, 'geo:search');
         }
- 
+
+        $scope.startSearchingAreaForShoutouts = function startSearchingAreaForShoutouts() {
+            if (angular.isDefined($scope.searchInteval))
+                return;
+
+            $scope.searchInteval = $interval(function() {
+                
+            }, SHOUTOUT_SCAN_INTERVAL);
+
+            $scope.findShoutsInMyArea();
+        }
+
+        $scope.stopSearchingAreaForShoutouts = function stopSearchingAreaForShoutouts() {
+            $interval.cancel($scope.searchInteval);
+        }
+
+
 
         $scope.$on("geo:search", function onGeoSearch (event, latLon, radius, shouts) {
-            $scope.tips = [];
-            $scope.$apply(function() {
-                for (var i = 1; i < shouts.length; i++) {
-                    var shout = shouts[i];
-                    var distance = getDistanceFromLatLonInKm(shout.location[0], shout.location[1],
-                        _currentlocation[0], _currentlocation[1]);
-                    var color = 'gray';
-
-                    if (distance > 1) {
-                        distance = (Math.round(distance * 10)/10) + " km de distancia";
-                    } else if (distance > 0 && distance < 1) {
-                        distance = (distance * 1000) + " m de distancia";
-                        color = 'black';
-                    } else {
-                        distance = "¡El tip esta justo junto a ti!";
-                        color = 'red';
-                    }
-
-                    angular.extend(shout, {
-                        distance: distance,
-                        color: color
+                $scope.tips = [];
+                var marker, i;
+                for (var i = 0; i < shouts.length; i++) {
+                    var shout = shouts[i];                 
+                    marker = new google.maps.Marker({
+                      position: new google.maps.LatLng(shout.location[0], shout.location[1]),
+                      map: map
                     });
 
-                    $scope.tips.push(shout);
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                      return function() {
+                        infowindow.setContent(locations[i][0]);
+                        infowindow.open(map, marker);
+                      }
+                    })(marker, i));      
+
                 }
 
-                $scope.$broadcast('scroll.refreshComplete');
-            });
+            marker.setMap(map);
         });
+
+        $scope.startSearchingAreaForShoutouts();
 
       //              var contentString = '<div id="content">'+
       // '<div id="siteNotice">'+
@@ -493,24 +507,24 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
       //                  new google.maps.Point(10, 34));
 
 
-       var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
+    // var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
 
-       var mapOptions = {center: myLatlng, zoom: 12};
+    //    var mapOptions = {center: myLatlng, zoom: 12};
 
        
-       var map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
+    //    var map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
 
         
       //   var infowindow = new google.maps.InfoWindow({
       //       content: contentString
       //   });
 
-      //   var marker = new google.maps.Marker({
-      //   position: myLatlng,
-      //   icon: pinImage,
-      //   title: 'Uluru (Ayers Rock)',
-      //   map: map
-      //   });
+        // var marker = new google.maps.Marker({
+        // position: myLatlng,
+        // // icon: pinImage,
+        // title: 'Uluru (Ayers Rock)',
+        // map: map
+        // });
 
 
       //   google.maps.event.addListener(marker, 'click', function() {
