@@ -1,5 +1,20 @@
 <ion-view title="Nuevo Tip">
-    <ion-content class="has-header" ng-controller="NewtipCtrl">
+    <ion-content class="has-header" ng-controller="uploadCtrl">
+            
+              <div class="card picture-container">
+                <div class="item item-image">
+                    <div class="row">
+                        <div class="col">
+                            <div class="image-container" ng-show="imageURI">
+                            <img  id="smallimage" ng-src="{{imageURI}}"  style="width:100%" />
+                            </div>
+                            <span class="message-note" ng-hide="imageURI"><p>Ninguna imagen seleccionada</p></span>
+                        </div>
+                    </div>          
+                 </div>
+            </div>
+
+
             <div class="list">
                 <label class="item item-input">
                     <span class="input-label">Titulo</span>
@@ -11,7 +26,8 @@
                 </label>
             </div>
             <div class="padding">
-                 <button ng-click="takePicture()" class="button button-block camera-button icon-left ion-android-camera button-positive"> Adjuntar Foto</button>
+                 <button ng-click="PhotoLibrary()" class="button button-block camera-button icon-left ion-android-camera button-positive"> Adjuntar Foto</button>
+
                 <button class="button button-block button-calm" ng-click="newtip()">Crear</button>
                 <a class="button button-block button-assertive" ng-click="back()">Cancelar</a>
             </div>

@@ -20,3 +20,17 @@ background-color: inherit;
 ion-footer-bar .item-input-wrapper ~ .button {
 margin:0;
 }
+
+.image-container{ 
+	max-width: 90vw; 
+    max-height: 100.25vw;
+    margin: auto;
+	
+}
+
+.picture-container {
+	position:relative;
+	top: -10px;
+	margin-bottom: 5px;
+
+}

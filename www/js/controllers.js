@@ -167,8 +167,18 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
     })
 
     .controller('LogoutCtrl', function () {
-        log.info("logging out..");
-        auth.logout();
+        var confirmPopup = $ionicPopup.confirm({
+                 title: 'Cerrar Sesión',
+                 template: '¿Estas Seguro?'
+        })
+        confirmPopup.then(function(res) {
+             if(res) {
+                log.info("logging out..");
+                // auth.logout();
+             } else {
+           console.log('You are not sure');
+            }
+        })
     })
 
     .controller('RegisterCtrl', function ($scope, $rootScope, $state, $firebase, $ionicLoading, $ionicPopup) {
@@ -347,7 +357,10 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
         });
     })
 
-    .controller('NewtipCtrl', function ($scope, $rootScope, $ionicLoading, $state, $geofire, $stateParams, $window) {
+    .controller('NewtipCtrl', function ($scope, $rootScope, $ionicLoading, Camera, $state, $geofire, $stateParams, $window) {
+        
+
+
         $scope.newtip = function () {
             $scope.loading = $ionicLoading.show({
                 content: 'Creando tip...'
@@ -355,6 +368,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
 
             var tipsRef = new Firebase(BASE_URL + "/tips");
             var geo = $geofire (tipsRef);
+            var myImg = $scope.imageURI;
 
             var tip = {
                 id: getCurrentUserID() + "_" + new Date().getTime(),
@@ -362,6 +376,9 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                 createdByAlias: getCurrentUserAlias(),
                 createdByID: getCurrentUserID(),
                 location: _currentlocation,
+                postedDateTime: new Date().getTime(),
+                // tipcontenido: $scope.tipcontenido,
+                image: myImg,
                 posts: []
             };
 
@@ -402,9 +419,9 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
 
     .controller('MapCtrl', function ($scope, $geofire, $interval, $ionicPopup, $firebase, $document, $ionicPlatform) {
         
-           var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
+        var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
 
-       var mapOptions = {center: myLatlng, zoom: 12};
+        var mapOptions = {center: myLatlng, zoom: 12};
 
        
         var map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
@@ -454,20 +471,27 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
 
         $scope.$on("geo:search", function onGeoSearch (event, latLon, radius, shouts) {
                 $scope.tips = [];
-                var marker, i;
+                var marker, i, infowindow, contenido;
                 for (var i = 0; i < shouts.length; i++) {
                     var shout = shouts[i];                 
                     marker = new google.maps.Marker({
                       position: new google.maps.LatLng(shout.location[0], shout.location[1]),
-                      map: map
+                      map: map,
+                      icon: 'img/logo.png'
                     });
+                    contenido = shout.title;
+                    infowindow = new google.maps.InfoWindow({content: contenido});
+                    // contenido = shout.title
+                    // var infowindow = new google.maps.InfoWindow({
+                    // content: contenido
+                    // });
 
-                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                    google.maps.event.addListener(marker, 'click', (function(marker, infowindow, i) {
                       return function() {
-                        infowindow.setContent(locations[i][0]);
+                        // infowindow.setContent(locations[i][0]);
                         infowindow.open(map, marker);
                       }
-                    })(marker, i));      
+                    })(marker, infowindow, i));      
 
                 }
 
@@ -505,31 +529,269 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
       //                  new google.maps.Size(21, 34),
       //                  new google.maps.Point(0, 0),
       //                  new google.maps.Point(10, 34));
+    })
 
-
-    // var myLatlng = new google.maps.LatLng(_currentlocation[0], _currentlocation[1]);
-
-    //    var mapOptions = {center: myLatlng, zoom: 12};
-
-       
-    //    var map = new google.maps.Map(document.getElementById("google-map"), mapOptions);
-
+    .controller('picturesCtrl', function ($scope, $rootScope, $ionicModal, $firebase, $timeout){
+        // $scope.pictures = Pictures.all();
         
-      //   var infowindow = new google.maps.InfoWindow({
-      //       content: contentString
-      //   });
+        //for calling uploading page
+        $ionicModal.fromTemplateUrl('templates/upload.html', function(modal){
+            $scope.modal = modal;
+        });
 
-        // var marker = new google.maps.Marker({
-        // position: myLatlng,
-        // // icon: pinImage,
-        // title: 'Uluru (Ayers Rock)',
-        // map: map
-        // });
+        $scope.upload = function(){
+            $scope.modal.show();
+        }
+        
+        $scope.images = [];
+        var imageList = new Firebase(BASE_URL + escapeEmailAddress($rootScope.userEmail));
+
+        //using on listener for value event using snapshot of firebase
+        imageList.on('value', function(snapshot){
+            var image = snapshot.val();
+            $scope.images = [];
+            $timeout(function(){    
+                for (var key in image){
+                    if (image.hasOwnProperty(key)){
+                        image[key].key = key;
+                        $scope.images.push(image[key]);
+                        console.log(image[key]);
+                    }
+                }
+
+            if ($scope.images.length == 0) {
+                    $scope.noImage = true;
+                        } else { 
+                            $scope.noImage = false;
+                        }
+
+                
+            });
+        });
+
+        //deteling single picture
+        $scope.deleteImage = function (key){
+            var notesList = new Firebase(BASE_URL);
+            imageList.child(key).remove();
+            console.log('deleted');
+        };
+    })
+
+    .controller('uploadCtrl', function ($scope, $rootScope, $ionicLoading, $geofire, $stateParams, $window, $state, $ionicModal, $firebase, Camera, $timeout){
+        $scope.newtip = function () {
+            $scope.loading = $ionicLoading.show({
+                content: 'Creando tip...'
+            });
+
+            var tipsRef = new Firebase(BASE_URL + "/tips");
+            var geo = $geofire (tipsRef);
+            var myImg = $scope.imageURI;
+
+            var tip = {
+                id: getCurrentUserID() + "_" + new Date().getTime(),
+                title: $scope.title,
+                createdByAlias: getCurrentUserAlias(),
+                createdByID: getCurrentUserID(),
+                location: _currentlocation,
+                postedDateTime: new Date().getTime(),
+                post: $scope.post,
+                // image: myImg,
+                posts: []
+            };
+
+            geo.$insertByLocWithId(_currentlocation, tip.id, tip).catch(
+                function(err) {
+                    $ionicPopup.alert({
+                        title: 'Fallo',
+                        content: err
+                    });
+                }
+            ).then(function() {
+                var userRef = new Firebase(BASE_URL + "/users/"+getCurrentUserID());
+                userRef.child("tipIdList").push({
+                    tipId: tip.id
+                });
+
+                // $rootScope.postTotip($scope.post, tip.id);
+                $state.go("app.mytips");
+
+                $scope.loading.hide();
+            });
+        }
+
+        $scope.back = function () {
+            $window.history.back();
+        }
 
 
-      //   google.maps.event.addListener(marker, 'click', function() {
-      //       infowindow.open(map,marker);
-      //   });
+
+            //for closing the modal
+        $scope.close = function (modal){
+            $scope.modal.hide();
+
+            $scope.imageURI = "";
+
+        };
+
+
+        $scope.getPhoto = function(){
+            Camera.getPicture().then(function(imageData){
+                $scope.imageURI = "data:image/png;base64," + imageData;
+            }, function(err){
+                console.log(err);
+            });
+        };
+
+
+        $scope.PhotoLibrary = function (){
+            if (navigator.camera){
+                 navigator.camera.getPicture( photoSuccess, photoError,
+                     {  quality: 50,
+                        sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
+                        destinationType: navigator.camera.DestinationType.DATA_URL,
+                        correctOrientation: true
+                        }
+
+                       );
+                } else {
+                    alert('camera not found');
+                }
+            };
+
+         function photoSuccess(imageData) {
+            $scope.image = document.getElementById('smallimage');
+            // hack until cordova 3.5.0 is released
+            $timeout(function(){    
+                if (imageData.substring(0,21)=="content://com.android") {
+                var photo_split=imageData.split("%3A");
+                imageData="content://media/external/images/media/"+photo_split[1];
+                }
             
+                $scope.imageURI = "data:image/png;base64," + imageData;
+                $scope.image.src = $scope.imageURI;
+            });
 
+
+        }
+
+          function photoError(message) {
+            console.log('Failed because: ' + message);
+        }
+
+
+        //for uploading
+
+        $scope.UploadPicture = function() {   
+            var myImg = $scope.imageURI;
+            var image = {
+                image: myImg,
+                created: Date.now()
+            }
+            var imageList = new Firebase(BASE_URL + escapeEmailAddress($rootScope.userEmail));
+
+            $firebase(imageList).$add(image);
+            $scope.modal.hide();
+            $scope.imageURI = "";
+        }
+
+        function onUploadSuccess(imageData){
+        var imageList = new Firebase(BASE_URL + escapeEmailAddress($rootScope.userEmail));               
+        
+        $firebase(imageList).$add(imageData);
+        
+        }
+
+        function onUploadFail(message){
+            alert('Failed because:' + message);
+        }
+    })
+
+    .controller('FavoriteThoughtsCtrl', function ($stateParams, $scope, $location, Thoughts, Favorites, Users) {
+        $scope.user = Users.getUserByEmail($stateParams.userEmail);
+
+        var getUserFavoritesThoughts = function() {
+            var usrFavorites = Favorites.getUserFavorites($stateParams.userEmail);
+            var favsThoughts = [];
+            for (var i in usrFavorites) {
+                var thgId = usrFavorites[i].thoughtId;
+                var thg = Thoughts.get(thgId);
+                thg.$id = thgId;
+                favsThoughts.push(thg);
+            }
+            return favsThoughts;
+        };
+
+        $scope.favoritesThoughts = getUserFavoritesThoughts();
+    })
+
+    .controller('ThoughtItemButtonCtrl', function ($scope, $rootScope, Users, $location, Comments, Favorites, $ionicModal, $ionicScrollDelegate) {
+        $scope.path = $location.absUrl();
+        $scope.getUserByEmail = function(email) {
+            var user = Users.getUserByEmail(email);
+            return user.username;
+        };
+
+        $scope.returnDate = function(dateString) {
+            return new Date(dateString).toLocaleDateString();
+        };
+
+        $scope.returnTime = function(dateString) {
+            return new Date(dateString).toLocaleTimeString();
+        };
+
+        $scope.countComments = function(thoughtId) {
+            return Comments.getThoughtComments(thoughtId).length;
+        };
+
+        $scope.isFavoritedThought = function(thoughtId) {
+            return Favorites.getIfUserFavoritedThought(thoughtId, $rootScope.user.email);
+        };
+
+        $scope.countFavorites = function(thoughtId) {
+            return Favorites.getThoughtFavorites(thoughtId).length;
+        };
+
+        $scope.favorite = function(thoughtId) {
+            Favorites.push({
+                thoughtId: thoughtId,
+                userEmail: $rootScope.user.email,
+                date: new Date().toISOString()
+            });
+            $scope.getIfUserFavoritedThought(thoughtId);
+        };
+
+        $scope.unfavorite = function(thoughtId) {
+            Favorites.remove(thoughtId, $rootScope.user.email);
+        };
+
+        $ionicModal.fromTemplateUrl('thought-detail.html', function(modal) {
+            $scope.thoughtDetailModal = modal;
+        }, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        });
+
+        $scope.openThoughtDetail = function(id) {
+            $scope.thoughtDetailModal.show();
+        };
+
+        $scope.closeThoughtDetail = function() {
+            $scope.thoughtDetailModal.hide();
+        };
+
+        $scope.$on('modal.shown', function() {
+            $scope.comments = Comments.getThoughtComments($scope.thought.$id);
+        });
+        
+        $scope.addComment = function(newComment) {
+            Comments.push({
+                text: newComment.text,
+                thoughtId: $scope.thought.$id,
+                userEmail: $rootScope.user.email,
+                date: new Date().toISOString()
+            });
+            newComment.text = '';
+            $scope.comments = Comments.getThoughtComments($scope.thought.$id);
+            $ionicScrollDelegate.$getByHandle('modalScroll').scrollBottom(true);
+        };
     })
