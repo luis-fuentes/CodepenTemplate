@@ -1,0 +1,30 @@
+<ion-view title="Tip Detail">
+    <ion-content class="page padding">
+        <div class="list padding">
+            <div class="item item-divider"></div>
+            <div class="item">
+                <ng-include src="'templates/thought-item.html'"></ng-include>
+            </div>
+            <div class="item item-divider"></div>
+            <div class="item" ng-repeat="comment in comments">
+                <div class="user">
+                    {{getUserByEmail(comment.userEmail)}} said:
+                    <div class="time">
+                        {{returnDate(comment.date)}} @ {{returnTime(comment.date)}}
+                    </div>
+                </div>
+                <div class="padding item-text-wrap">
+                    <p>{{comment.text}}</p>
+                </div>
+            </div>
+            <form ng-submit="addComment(newComment)">
+                <label class="item item-input">
+                    <input type="text" placeholder="Say something about this" ng-model="newComment.text">
+                </label>
+                <div class="item padding">
+                    <button class="button button-outline button-calm">Comment</button>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>

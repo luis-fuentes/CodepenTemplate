@@ -1,9 +1,16 @@
 <ion-view title="Ruta Tips">
-    <ion-content class="has-header" ng-controller="LoginCtrl">
+    <ion-content class="has-header" ng-controller="LoginCtrl" overflow-scroll="true">
+             <div class="item item-image" style="border:none;
+            margin-left: 2%;width:20%;margin-top:2%;margin-bottom:1%;">
+                <img src="img/corfo.png"/>
+            </div>
+
             <div class="item item-image" style="border:none;margin-left: auto;
-            margin-right: auto;width:60%;margin-top:10%;margin-bottom:10%;">
+            margin-right: auto;width:60%;margin-top:1%;margin-bottom:10%;">
                 <img src="img/rutatips.jpg"/>
             </div>
+           
+
 
             <div class="list">
                 <label class="item item-input">
@@ -18,6 +25,9 @@
             <div class="padding">
                 <button class="button button-block button-calm" ng-click="login($event)">Ingresar</button>
                 <button class="button button-block button-positive" ng-click="register($event)">Registrar</button>
+            <a class="btn-auth btn-facebook large" ng-click="login('facebook')">
+            Ingresar con <b>Facebook</b>
+        </a>
             </div>
     </ion-content>
 </ion-view>

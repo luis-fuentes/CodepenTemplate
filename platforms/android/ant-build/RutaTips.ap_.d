@@ -51,10 +51,17 @@
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/README.md \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/templates \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/css/style.css \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/img/acti.jpg \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/img/comida.jpg \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/img/corfo.png \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/img/hotel.jpg \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/img/ionic.png \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/img/logo.png \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/img/logot.png \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/img/para movil.jpg \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/img/perfil.jpg \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/img/rutatips.jpg \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/img/serv.jpg \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/img/shout.jpg \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/js/app.js \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/js/config.js \
@@ -174,15 +181,18 @@
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/plugins/org.apache.cordova.file-transfer/www/FileTransfer.js \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/plugins/org.apache.cordova.file-transfer/www/FileTransferError.js \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/areatips.html \
-/Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/browse.html \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/login.html \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/map.html \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/menu.html \
-/Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/mytips copia.html \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/modals \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/mytips.html \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/newtip.html \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/register.html \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/settings.html \
-/Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/tip copia.html \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/tabs \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/tip-detail.html \
 /Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/tip.html \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/user-favorites.html \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/modals/tip-detail.html \
+/Users/Narki/Development/rutaTips/platforms/android/assets/www/templates/tabs/tip-detail.html \
 /Users/Narki/Development/rutaTips/platforms/android/ant-build/AndroidManifest.xml \

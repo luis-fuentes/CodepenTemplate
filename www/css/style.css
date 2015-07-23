@@ -1,3 +1,12 @@
+.title-image {
+    margin-top: 8px;
+    height: 27px;
+}
+
+ion-content.login{
+    background: url("../img/sunset.jpg") center center no-repeat;
+    background-size: cover;
+}
 /* Empty. Add your own CSS if you like */
 ion-footer-bar.newpost {
 padding:0;

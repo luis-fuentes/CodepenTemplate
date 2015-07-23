@@ -40,6 +40,13 @@ function getCurrentUserAlias() {
         return null;
 }
 
+function getCurrentUserEmail() {
+    if (_currentsouser)
+        return _currentsouser.email;
+    else
+        return null;
+}
+
 angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
 
     .controller('AppCtrl', function ($state, $scope, $window, $rootScope, $firebase, $ionicLoading, $ionicPopup) {
@@ -125,7 +132,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                     log.error(error);
                     $ionicPopup.alert({
                         title: 'Fallo Ingreso',
-                        content: "Email o passworn invalidos"
+                        content: "Email o contraseña invalidos"
                     });
                     $state.go("app.login");
                 } else if (user) {
@@ -213,7 +220,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                         {
                             alias: $scope.alias,
                             email: $scope.email,
-                            radius: "unlimited",
+                            radius: "5",
                             tipIdList: []
                         }
                     );
@@ -368,6 +375,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
 
             var tipsRef = new Firebase(BASE_URL + "/tips");
             var geo = $geofire (tipsRef);
+            
             var myImg = $scope.imageURI;
 
             var tip = {
@@ -472,6 +480,11 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
         $scope.$on("geo:search", function onGeoSearch (event, latLon, radius, shouts) {
                 $scope.tips = [];
                 var marker, i, infowindow, contenido;
+                    marker = new google.maps.Marker({
+                      position: new google.maps.LatLng(_currentlocation[0],_currentlocation[1]),
+                      map: map
+                    });
+
                 for (var i = 0; i < shouts.length; i++) {
                     var shout = shouts[i];                 
                     marker = new google.maps.Marker({
@@ -585,6 +598,7 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
 
             var tipsRef = new Firebase(BASE_URL + "/tips");
             var geo = $geofire (tipsRef);
+            var myImg = "Default";
             var myImg = $scope.imageURI;
 
             var tip = {
@@ -592,9 +606,10 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                 title: $scope.title,
                 createdByAlias: getCurrentUserAlias(),
                 createdByID: getCurrentUserID(),
+                userEmail: getCurrentUserEmail(),
                 location: _currentlocation,
                 postedDateTime: new Date().getTime(),
-                // tipcontenido: $scope.tipcontenido,
+                post: $scope.post,
                 image: myImg,
                 posts: []
             };
@@ -612,8 +627,8 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                     tipId: tip.id
                 });
 
-                $rootScope.postTotip($scope.post, tip.id);
-                $state.go("app.viewtip", {tipId: tip.id});
+                // $rootScope.postTotip($scope.post, tip.id);
+                $state.go("app.mytips");
 
                 $scope.loading.hide();
             });
@@ -646,10 +661,12 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
         $scope.PhotoLibrary = function (){
             if (navigator.camera){
                  navigator.camera.getPicture( photoSuccess, photoError,
-                     {  quality: 50,
+                     {  quality: 25,
                         sourceType: navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
                         destinationType: navigator.camera.DestinationType.DATA_URL,
-                        correctOrientation: true
+                        correctOrientation: true,
+                        targetWidth: 600,
+                        targetHeight: 600
                         }
 
                        );
@@ -687,25 +704,159 @@ angular.module('starter.controllers', ['firebase', 'ionic', 'angularGeoFire'])
                 image: myImg,
                 created: Date.now()
             }
-             var imageList = new Firebase(BASE_URL + escapeEmailAddress($rootScope.userEmail));
+            var imageList = new Firebase(BASE_URL + escapeEmailAddress($rootScope.userEmail));
 
             $firebase(imageList).$add(image);
             $scope.modal.hide();
             $scope.imageURI = "";
-    }
+        }
 
-    function onUploadSuccess(imageData){
-    var imageList = new Firebase(BASE_URL + escapeEmailAddress($rootScope.userEmail));               
-    
-    $firebase(imageList).$add(imageData);
-    
-    }
+        function onUploadSuccess(imageData){
+        var imageList = new Firebase(BASE_URL + escapeEmailAddress($rootScope.userEmail));               
+        
+        $firebase(imageList).$add(imageData);
+        
+        }
 
-    function onUploadFail(message){
-        alert('Failed because:' + message);
-    }
+        function onUploadFail(message){
+            alert('Failed because:' + message);
+        }
+    })
 
+    .controller('FavoriteTipsCtrl', function ($stateParams, $scope, $location, Tips, Favorites, Users) {
+        $scope.user = Users.getUserByEmail($stateParams.email);
 
+        var getUserFavoritesTips = function() {
+            var usrFavorites = Favorites.getUserFavorites($stateParams.email);
+            var favsTips = [];
+            for (var i in usrFavorites) {
+                var thgId = usrFavorites[i].tipId;
+                var thg = Tips.get(thgId);
+                thg.$id = thgId;
+                favsTips.push(thg);
+            }
+            return favsTips;
+        };
 
+        $scope.favoritesTips = getUserFavoritesTips();
+    })
+
+    .controller('TipItemButtonCtrl', function ($scope, $rootScope, Users, $location, Comments, Favorites, $ionicModal, $ionicScrollDelegate) {
+        $scope.path = $location.absUrl();
+        $scope.getUserByEmail = function(email) {
+            var user = Users.getUserByEmail(email);
+            return user.username;
+        };
+
+        $scope.returnDate = function(dateString) {
+            return new Date(dateString).toLocaleDateString();
+        };
+
+        $scope.returnTime = function(dateString) {
+            return new Date(dateString).toLocaleTimeString();
+        };
+
+        $scope.countComments = function(tipId) {
+            return Comments.getTipComments(tipId).length;
+        };
+
+        $scope.isFavoritedTip = function(tipId) {
+            return Favorites.getIfUserFavoritedTip(tipId, getCurrentUserEmail());
+        };
+
+        $scope.countFavorites = function(tipId) {
+            return Favorites.getTipFavorites(tipId).length;
+        };
+
+        $scope.favorite = function(tipId) {
+            Favorites.push({
+                tipId: tipId,
+                userEmail: getCurrentUserEmail(),
+                date: new Date().getTime()
+            });
+            $scope.getIfUserFavoritedTip(tipId);
+        };
+
+        $scope.unfavorite = function(tipId) {
+            Favorites.remove(tipId, getCurrentUserEmail());
+        };
+
+        $ionicModal.fromTemplateUrl('tip-detail.html', function(modal) {
+            $scope.tipDetailModal = modal;
+        }, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        });
+
+        $scope.openTipDetail = function(id) {
+            $scope.tipDetailModal.show();
+        };
+
+        $scope.closeTipDetail = function() {
+            $scope.tipDetailModal.hide();
+        };
+
+        $scope.$on('modal.shown', function() {
+            $scope.comments = Comments.getTipComments($scope.tip.$id);
+        });
+        
+        $scope.addComment = function(newComment) {
+            Comments.push({
+                text: newComment.text,
+                tipId: $scope.tip.$id,
+                userEmail: getCurrentUserEmail(),
+                date: new Date().getTime()
+            });
+            newComment.text = '';
+            $scope.comments = Comments.getTipComments($scope.tip.$id);
+            $ionicScrollDelegate.$getByHandle('modalScroll').scrollBottom(true);
+        };
+    })
+
+    .controller('TipsCtrl', function ($scope, $rootScope, $ionicPopup, $ionicModal, Users, Tips) {
+        $scope.$root.cls = 'bar-logged';
+        $scope.tips = Tips.all();
+        $scope.users = Users.all();
+        $scope.myTips = Tips.getUserTips(getCurrentUserEmail());
+
+        $scope.createNewTip = function(tip) {
+            if (tip !== undefined) {
+                Tips.push({
+                    text: tip.text,
+                    userEmail: getCurrentUserEmail(),
+                    date: new Date().getTime()
+                });
+                tip.text = '';
+                $scope.tipModal.hide();
+            } else {
+                $ionicPopup.alert({
+                    title: 'Error',
+                    subTitle: 'No text',
+                    template: 'Please, write your tip.',
+                    okType: 'button-assertive',
+                    okText: 'Dismiss'
+                });
+            }
+        };
+
+        $ionicModal.fromTemplateUrl('new-tip.html', function(modal) {
+            $scope.tipModal = modal;
+        }, {
+            scope: $scope,
+            animation: 'slide-in-up'
+        });
+
+        $scope.newTip = function() {
+            $scope.tipModal.show();
+        };
+
+        $scope.closeNewTip = function() {
+            $scope.tipModal.hide();
+        };
+
+        $scope.$on('modal.hidden', function() {
+            $scope.tips = Tips.all();
+            $scope.myTips = Tips.getUserTips(getCurrentUserEmail());
+        });
 
     })

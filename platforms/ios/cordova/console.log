@@ -3783,3 +3783,135 @@ file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applica
 2014-08-26 04:28:06.049 Ruta Tips[10362:70b] Updated location: 37.79,-122.41
 2014-08-26 04:28:07.050 Ruta Tips[10362:70b] Updated location: 37.79,-122.41
 2014-08-26 04:28:08.051 Ruta Tips[10362:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:03.345 Ruta Tips[29344:70b] Multi-tasking -> Device: YES, App: YES
+2014-09-02 03:51:03.499 Ruta Tips[29344:70b] Unlimited access to network resources
+2014-09-02 03:51:04.872 Ruta Tips[29344:70b] [CDVTimer][keyboard] 0.074029ms
+2014-09-02 03:51:04.891 Ruta Tips[29344:70b] [CDVTimer][file] 18.294990ms
+2014-09-02 03:51:04.892 Ruta Tips[29344:70b] CDVPlugin class CDVStatusBar (pluginName: statusbar) does not exist.
+2014-09-02 03:51:04.893 Ruta Tips[29344:70b] [CDVTimer][statusbar] 0.899017ms
+2014-09-02 03:51:04.893 Ruta Tips[29344:70b] [CDVTimer][TotalPluginStartup] 21.679044ms
+2014-09-02 03:51:05.224 Ruta Tips[29344:70b] Resetting plugins due to page load.
+2014-09-02 03:51:06.299 Ruta Tips[29344:70b] Finished load of: file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/index.html#/app/login
+2014-09-02 03:51:06.340 Ruta Tips[29344:70b] THREAD WARNING: ['Device'] took '27.223145' ms. Plugin should use a background thread.
+2014-09-02 03:51:06.496 Ruta Tips[29344:70b] config init
+2014-09-02 03:51:06.496 Ruta Tips[29344:70b] app started
+2014-09-02 03:51:06.497 Ruta Tips[29344:70b] user is logged out
+2014-09-02 03:51:07.232 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:07.232 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:07.236 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:08.229 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:09.230 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:10.232 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:11.232 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:12.234 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:13.234 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:14.234 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:15.235 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:16.235 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:17.236 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:18.237 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:19.238 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:20.253 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:21.240 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:22.241 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:23.243 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:24.242 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:25.246 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:26.245 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:27.276 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:28.246 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:29.247 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:30.279 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:31.249 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:32.250 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:33.251 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:34.253 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:35.254 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:36.256 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:37.257 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:38.257 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:39.258 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:40.258 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:41.260 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:42.260 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:43.262 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:44.262 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:45.263 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:46.265 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:47.265 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:48.266 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:49.270 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:50.269 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:51.271 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:52.271 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:53.272 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:53.311 Ruta Tips[29344:70b] error JSON.stringify()ing argument: TypeError: JSON.stringify cannot serialize cyclic structures.
+2014-09-02 03:51:54.274 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:54.741 Ruta Tips[29344:70b] User ID: simplelogin:33, Provider: password
+2014-09-02 03:51:54.741 Ruta Tips[29344:70b] currentuser url: https://ruta-tips.firebaseio.com/users/33/
+2014-09-02 03:51:55.274 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:56.275 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:57.276 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:58.278 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:51:58.782 Ruta Tips[29344:70b] THREAD WARNING: ['Camera'] took '196.836914' ms. Plugin should use a background thread.
+2014-09-02 03:51:59.277 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:00.280 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:01.281 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:02.282 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:03.283 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:04.283 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:05.285 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:06.286 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:07.286 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:08.289 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:09.287 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:10.289 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:11.290 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:12.291 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:13.292 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:14.294 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:15.294 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:16.293 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:17.294 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:18.295 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:19.296 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:20.297 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:21.298 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:22.297 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:23.297 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:24.300 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:25.300 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:26.300 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:27.301 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:28.301 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:29.303 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:30.304 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:31.081 Ruta Tips[29344:70b] ERROR: Error: Firebase.set failed: First argument contains undefined in property 'image'
+g@file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/js/ext/firebase.js:1:35
+Ba@file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/js/ext/firebase.js:9:48
+Ba@file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/js/ext/firebase.js:10:209
+Aa@file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/js/ext/firebase.js:8:464
+set@file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/js/ext/firebase.js:138:100
+insertByLocWithId@file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/js/ext/geoFire.js:297:52
+file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/js/ext/angularGeoFire.min.js:1:853
+file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/lib/ionic/js/ionic.bundle.js:21079:30
+completeOutstandingRequest@file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/lib/ionic/js/ionic.bundle.js:11581:15
+file:///Users/Narki/Library/Application%20Support/iPhone%20Simulator/7.1/Applications/CBD9BF08-3884-4103-98D3-438BDCC8932D/Ruta%20Tips.app/www/lib/ionic/js/ionic.bundle.js:11888:33
+2014-09-02 03:52:31.306 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:32.307 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:33.308 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:34.309 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:35.311 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:36.312 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:37.313 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:38.315 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:39.316 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:40.317 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:41.319 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:42.320 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:43.321 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:44.322 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:45.324 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:46.325 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:47.326 Ruta Tips[29344:70b] Updated location: 37.79,-122.41
+2014-09-02 03:52:48.326 Ruta Tips[29344:70b] Updated location: 37.79,-122.41

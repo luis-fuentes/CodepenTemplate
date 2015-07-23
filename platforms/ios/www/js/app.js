@@ -62,6 +62,15 @@ angular.module('starter', ['starter.controllers', 'starter.services'])
                 }
             })
 
+            .state('app.user-favorites', {
+                url: "/user-favorites",
+                views: {
+                    'menuContent': {
+                        templateUrl: "templates/user-favorites.html"
+                    }
+                }
+            })
+
             .state('app.logout', {
                 url: "/logout",
                 views: {

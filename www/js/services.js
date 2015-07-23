@@ -196,21 +196,21 @@ angular.module('starter.services', [])
             get: function(key) {
                 return favorites[key];
             },
-            getKeyByThoughtAndEmail: function(thoughtId, userEmail) {
+            getKeyByTipAndEmail: function(tipId, userEmail) {
                 for (var key in favorites) {
                     if (favorites[key] !== null){
-                        if ((favorites[key].thoughtId === thoughtId) && 
+                        if ((favorites[key].tipId === tipId) && 
                                 (favorites[key].userEmail === userEmail)){
                             return key;
                         }
                     }
                 }
             },
-            getThoughtFavorites: function(thoughtId) {
+            getTipFavorites: function(tipId) {
                 var thgFavorites = [];
                 for (var key in favorites) {
                     if (favorites[key] !== null) {
-                        if (favorites[key].thoughtId === thoughtId) {
+                        if (favorites[key].tipId === tipId) {
                             thgFavorites.push(favorites[key]);
                         }
                     }
@@ -228,8 +228,8 @@ angular.module('starter.services', [])
                 }
                 return usrFavorites;
             },
-            getIfUserFavoritedThought: function(thoughtId, userEmail) {
-                var thgFavorites = this.getThoughtFavorites(thoughtId);
+            getIfUserFavoritedTip: function(tipId, userEmail) {
+                var thgFavorites = this.getTipFavorites(tipId);
                 for (var key in thgFavorites) {
                     if (thgFavorites[key].userEmail === userEmail) {
                         return true;
@@ -240,8 +240,8 @@ angular.module('starter.services', [])
             push: function(favorite) {
                 favorites.$add(favorite);
             },
-            remove: function(thoughtId, userEmail) {
-                favorites.$remove(this.getKeyByThoughtAndEmail(thoughtId, userEmail));
+            remove: function(tipId, userEmail) {
+                favorites.$remove(this.getKeyByTipAndEmail(tipId, userEmail));
             }
         };
     })
@@ -256,11 +256,11 @@ angular.module('starter.services', [])
             get: function(key) {
                 return comments[key];
             },
-            getThoughtComments: function(thoughtKey) {
+            getTipComments: function(tipKey) {
                 var thComments = [];
                 for (var key in comments) {
                     if(comments[key] !== null){
-                        if (comments[key].thoughtId === thoughtKey) {
+                        if (comments[key].tipId === tipKey) {
                             thComments.push(comments[key]);
                         }
                     }
@@ -273,27 +273,27 @@ angular.module('starter.services', [])
         };
     })
 
-    .factory('Thoughts', function($firebase) {
-        var thoughts = $firebase(new Firebase('https://ruta-tips.firebaseio.com/thoughts'));
+    .factory('Tips', function($firebase) {
+        var tips = $firebase(new Firebase('https://ruta-tips.firebaseio.com/tips'));
 
         return{
             all: function() {
-                return thoughts;
+                return tips;
             },
             get: function(key) {
-                return thoughts[key];
+                return tips[key];
             },
-            getUserThoughts: function(email) {
-                var userThoughts = [];
-                for (var key in thoughts) {
-                    if (thoughts[key].userEmail === email) {
-                        userThoughts.push(thoughts[key]);
+            getUserTips: function(email) {
+                var userTips = [];
+                for (var key in tips) {
+                    if (tips[key].userEmail === email) {
+                        userTips.push(tips[key]);
                     }
                 }
-                return userThoughts;
+                return userTips;
             },
-            push: function(thought) {
-                thoughts.$add(thought);
+            push: function(tip) {
+                tips.$add(tip);
             }
         }
     })
